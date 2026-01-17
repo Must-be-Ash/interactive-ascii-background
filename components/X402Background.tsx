@@ -132,7 +132,7 @@ export function X402Background() {
           if (isTextChar) {
             ctx.fillStyle = '#FFFFFF'; // Bright white for text
           } else {
-            ctx.fillStyle = '#555555'; // Dark gray for background
+            ctx.fillStyle = '#555555'; // Medium gray for ASCII characters
           }
 
           ctx.fillText(char, x, y);

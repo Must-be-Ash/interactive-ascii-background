@@ -175,9 +175,9 @@ export function AsciiBackground() {
 
           // Set color based on whether it's text or background
           if (isTextChar) {
-            ctx.fillStyle = '#FFFFFF';
+            ctx.fillStyle = '#FFFFFF'; // Bright white for text
           } else {
-            ctx.fillStyle = '#333333';
+            ctx.fillStyle = '#555555'; // Medium gray for ASCII characters
           }
 
           ctx.fillText(char, x, y);

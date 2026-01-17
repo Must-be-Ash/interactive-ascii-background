@@ -227,10 +227,10 @@ export function GenesisBlockBackground() {
 
           // Set color based on whether it's text or background
           if (isTextChar) {
-            ctx.fillStyle = '#FFFFFF';
+            ctx.fillStyle = '#FFFFFF'; // Bright white for text
           } else if (isInHexDump) {
-            // Hex dump characters
-            ctx.fillStyle = '#333333';
+            // Hex dump characters - medium brightness for better contrast
+            ctx.fillStyle = '#555555';
           } else {
             // Outside hex dump - darker/invisible
             ctx.fillStyle = '#1a1a1a';
