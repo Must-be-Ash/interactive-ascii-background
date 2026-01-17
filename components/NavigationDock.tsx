@@ -8,42 +8,17 @@ export function NavigationDock() {
 
   return (
     <nav
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '20px',
-        pointerEvents: 'none',
-      }}
+      className="fixed top-0 left-0 right-0 z-[100] flex justify-center p-4 md:p-5 pointer-events-none"
     >
       <div
-        style={{
-          display: 'flex',
-          gap: '12px',
-          backgroundColor: '#1A1A1A',
-          border: '1px solid #333333',
-          borderRadius: '12px',
-          padding: '8px',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-          pointerEvents: 'auto',
-        }}
+        className="flex gap-2 md:gap-3 bg-[#1A1A1A] border border-[#333333] rounded-xl p-2 shadow-[0_4px_12px_rgba(0,0,0,0.3)] pointer-events-auto"
       >
         <Link
           href="/"
+          className="px-4 py-2 md:px-5 md:py-2.5 rounded-lg no-underline transition-all text-sm md:text-base font-medium font-mono"
           style={{
-            padding: '10px 20px',
-            borderRadius: '8px',
-            textDecoration: 'none',
             color: pathname === '/' ? '#FFFFFF' : '#888888',
             backgroundColor: pathname === '/' ? '#333333' : 'transparent',
-            transition: 'all 0.2s ease',
-            fontSize: '14px',
-            fontWeight: '500',
-            fontFamily: 'monospace',
           }}
           onMouseEnter={(e) => {
             if (pathname !== '/') {
@@ -62,16 +37,10 @@ export function NavigationDock() {
         </Link>
         <Link
           href="/genesis"
+          className="px-4 py-2 md:px-5 md:py-2.5 rounded-lg no-underline transition-all text-sm md:text-base font-medium font-mono"
           style={{
-            padding: '10px 20px',
-            borderRadius: '8px',
-            textDecoration: 'none',
             color: pathname === '/genesis' ? '#FFFFFF' : '#888888',
             backgroundColor: pathname === '/genesis' ? '#333333' : 'transparent',
-            transition: 'all 0.2s ease',
-            fontSize: '14px',
-            fontWeight: '500',
-            fontFamily: 'monospace',
           }}
           onMouseEnter={(e) => {
             if (pathname !== '/genesis') {

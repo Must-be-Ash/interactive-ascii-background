@@ -57,27 +57,57 @@ export function GenesisBlockBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    const resize = () => {
+    // Set canvas size and calculate responsive font settings
+    let fontSize: number;
+    let charSpacing: number;
+    let lineHeight: number;
+    let cols: number;
+    let rows: number;
+    let offsetCol: number;
+    let hexCol: number;
+    let asciiCol: number;
+    let totalLineWidth: number;
+    let hexDumpStartRow: number;
+    let hexDumpStartCol: number;
+
+    const calculateLayout = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      // Responsive font settings based on screen width
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+      if (isMobile) {
+        fontSize = 6;
+        charSpacing = 3.5;
+        lineHeight = 8;
+      } else if (isTablet) {
+        fontSize = 10;
+        charSpacing = 6;
+        lineHeight = 14;
+      } else {
+        fontSize = 14;
+        charSpacing = 8;
+        lineHeight = 18;
+      }
+
+      cols = Math.ceil(canvas.width / charSpacing) + 1;
+      rows = Math.ceil(canvas.height / lineHeight) + 1;
+
+      // Hex dump layout constants - better spacing
+      offsetCol = 2; // Start with some padding
+      hexCol = offsetCol + 10; // Offset is 8 chars + 2 spaces
+      asciiCol = hexCol + 50; // 16 bytes * 3 chars (2 hex + 1 space) = 48, plus 2 extra for spacing
+      totalLineWidth = asciiCol + 18; // Full width of one hex dump line with padding
+
+      // Calculate center position for single hex dump block
+      hexDumpStartRow = Math.floor((rows - genesisHexLines.length) / 2);
+      hexDumpStartCol = Math.floor((cols - totalLineWidth) / 2);
     };
-    resize();
-    window.addEventListener('resize', resize);
 
-    // Font settings - monospace for hex dump
-    const fontSize = 14;
-    const charSpacing = 8;
-    const lineHeight = 18;
-
-    const cols = Math.ceil(canvas.width / charSpacing) + 1;
-    const rows = Math.ceil(canvas.height / lineHeight) + 1;
-
-    // Hex dump layout constants - better spacing
-    const offsetCol = 2; // Start with some padding
-    const hexCol = offsetCol + 10; // Offset is 8 chars + 2 spaces
-    const asciiCol = hexCol + 50; // 16 bytes * 3 chars (2 hex + 1 space) = 48, plus 2 extra for spacing
-    const totalLineWidth = asciiCol + 18; // Full width of one hex dump line with padding
+    calculateLayout();
+    window.addEventListener('resize', calculateLayout);
 
     // Initialize display text
     displayText.current = currentText.current.map(line => line.split(''));
@@ -126,10 +156,6 @@ export function GenesisBlockBackground() {
         const textRow = baseTextRow + lineIndex;
         textPositions.push({ startCol: textStartCol, row: textRow, length: textLength });
       }
-
-      // Calculate center position for single hex dump block
-      const hexDumpStartRow = Math.floor((rows - genesisHexLines.length) / 2);
-      const hexDumpStartCol = Math.floor((cols - totalLineWidth) / 2);
 
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
@@ -239,7 +265,7 @@ export function GenesisBlockBackground() {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', calculateLayout);
       if (animationInterval) clearInterval(animationInterval);
     };
   }, []);
