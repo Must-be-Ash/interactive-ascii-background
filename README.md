@@ -45,4 +45,3 @@ npm start
 - React 19
 - TypeScript
 - Tailwind CSS
-# interactive-ascii-background
