@@ -57,6 +57,28 @@ export function NavigationDock() {
         >
           BTC
         </Link>
+        <Link
+          href="/x402"
+          className="px-4 py-2 md:px-5 md:py-2.5 rounded-lg no-underline transition-all text-sm md:text-base font-medium font-mono"
+          style={{
+            color: pathname === '/x402' ? '#FFFFFF' : '#888888',
+            backgroundColor: pathname === '/x402' ? '#333333' : 'transparent',
+          }}
+          onMouseEnter={(e) => {
+            if (pathname !== '/x402') {
+              e.currentTarget.style.backgroundColor = '#2A2A2A';
+              e.currentTarget.style.color = '#CCCCCC';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (pathname !== '/x402') {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#888888';
+            }
+          }}
+        >
+          x402
+        </Link>
       </div>
     </nav>
   );
